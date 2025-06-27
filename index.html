@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice Upload</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f8f9fa;
+      padding: 2rem;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align: center;">Upload Invoice</h2>
+  <form id="invoiceForm" enctype="multipart/form-data">
+    <label for="companyName">Company Name</label>
+    <input type="text" id="companyName" name="companyName" required />
+
+    <label for="invoiceNumber">Invoice Number</label>
+    <input type="text" id="invoiceNumber" name="invoiceNumber" required />
+
+    <label for="invoiceDate">Invoice Date</label>
+    <input type="date" id="invoiceDate" name="invoiceDate" required />
+
+    <label for="invoiceFile">Invoice File (PDF/Image)</label>
+    <input type="file" id="invoiceFile" name="invoiceFile" accept=".pdf,.jpg,.jpeg,.png" required />
+
+    <button type="submit">Upload Invoice</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('invoiceForm');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('https://invoice-automatin.onrender.com', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+        alert('Upload successful: ' + JSON.stringify(result));
+      } catch (err) {
+        console.error('Upload failed', err);
+        alert('Upload failed. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
