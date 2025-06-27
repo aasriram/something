@@ -18,7 +18,7 @@ app.post('/upload', upload.single('invoiceFile'), async (req, res) => {
   if (!file) return res.status(400).json({ error: 'No file uploaded' });
 
   // Optional: Send to n8n webhook
-  const webhookUrl = 'https://primary-production-6235.up.railway.app/webhook/1bfdb1ad-bfe4-4eb2-8741-05e23562be63';
+  const webhookUrl = 'https://primary-production-6235.up.railway.app/webhook-test/1bfdb1ad-bfe4-4eb2-8741-05e23562be63';
   const formData = new FormData();
   formData.append('companyName', companyName);
   formData.append('invoiceNumber', invoiceNumber);
